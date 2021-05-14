@@ -15,6 +15,12 @@
     
     <%= yield %>
     
+    <li>
+      <%= link_to new_topic_path do %>
+      <%= image_tag 'icons/camera.png' %>
+      <% end %>
+    </li>
+    
     <script>
       $(function(){
         $(".alert").fadeOut(5000);
