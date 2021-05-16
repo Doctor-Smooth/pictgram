@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   def new
-    @topics = Topic.new
+    @topic = Topic.new
   end
   
   def create
