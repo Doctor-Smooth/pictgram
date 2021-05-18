@@ -1,4 +1,10 @@
 class TopicsController < ApplicationController
+  before_action :login_check, only: [:new, :edit, :update, :destroy]
+  
+  def index
+    @topics = Topic.all
+  end
+  
   def new
     @topic = Topic.new
   end
@@ -17,5 +23,11 @@ class TopicsController < ApplicationController
   private
   def topic_params
     params.require(:topic).permit(:imafe, :description)
+  end
+  
+  def login_check
+    unless current_user
+    redirect_to root_path
+    end
   end
 end
