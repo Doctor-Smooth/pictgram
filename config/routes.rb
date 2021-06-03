@@ -1,32 +1,22 @@
 Rails.application.routes.draw do
-  get 'topics/new'
-
-  get 'users/new'
-
-    root 'pages#index'
-    get 'pages/index'
-    
-    root 'pages#index'
-    get 'pages/help'
-    
-    root 'pages#index'
-    get 'pages/link'
-    
-    resources :users
-    
- get 'sessions/new'
+  root 'pages#index'
+  get 'pages/index'
+  get 'pages/help'
+  get 'pages/link'
+ 
+  resources :users
+  resources :topics do
+    resources :favorites, only: [:create, :destroy]
+  end
   
-   root 'pages#index'
-   get 'pages/help'
+  get    '/login',   to: 'sessions#new'
+  post   '/login',   to: 'sessions#create'
+  delete '/logout',  to: 'sessions#destroy'
 
-   resources :users
+  get 'favorites/index'
+  post '/favorites', to: 'favorites#create'
+  delete '/favorites', to: 'favorites#destroy'
 
-   get    '/login',   to: 'sessions#new'
-   post   '/login',   to: 'sessions#create'
-   delete '/logout',  to: 'sessions#destroy'
-
-   resources :users
-   resources :topics
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     
 end

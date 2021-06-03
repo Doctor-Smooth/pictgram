@@ -1,8 +1,7 @@
 class TopicsController < ApplicationController
-  before_action :login_check, only: [:new, :edit, :update, :destroy]
   
   def index
-    @topics = Topic.all
+    @topics = Topic.all.includes(:favorite_users)
   end
   
   def new
@@ -15,19 +14,22 @@ class TopicsController < ApplicationController
     if @topic.save
       redirect_to topics_path, success: '投稿に成功しました'
     else
+      raise
       flash.now[:danger] = "投稿に失敗しました"
       render :new
     end
+    
+    def show
+      @topic = Topic.find_by(id: params[:id])
+      @user = @post.user
+      
+      @favorites_count = Favorite.where(topic_id:@topic.id).count
+    end
+    
   end
   
   private
   def topic_params
     params.require(:topic).permit(:imafe, :description)
-  end
-  
-  def login_check
-    unless current_user
-    redirect_to root_path
-    end
   end
 end
