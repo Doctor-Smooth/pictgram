@@ -11,10 +11,9 @@ class TopicsController < ApplicationController
   def create
     @topic = current_user.topics.new(topic_params)
     
-    if @topic.save
+    if @topic.save!
       redirect_to topics_path, success: '投稿に成功しました'
     else
-      raise
       flash.now[:danger] = "投稿に失敗しました"
       render :new
     end
@@ -30,6 +29,6 @@ class TopicsController < ApplicationController
   
   private
   def topic_params
-    params.require(:topic).permit(:imafe, :description)
+    params.require(:topic).permit(:image, :description)
   end
 end

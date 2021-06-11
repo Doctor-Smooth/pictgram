@@ -15,7 +15,7 @@ class FavoritesController < ApplicationController
     end
   end
   
-  def destroy
+  def delete
     favorite = Favorite.find_by(user_id: @current_user.id, topic_id: params[topic.id])
     favorite.destroy if favorite.present?
     
