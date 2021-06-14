@@ -6,7 +6,7 @@ Rails.application.routes.draw do
  
   resources :users
   resources :topics do
-    resources :favorites, only: [:create, :destroy]
+    resources :favorites, only: [:create, :delete]
   end
   
   get    '/login',   to: 'sessions#new'
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   get 'favorites/index'
   post '/favorites', to: 'favorites#create'
-  delete '/favorites', to: 'favorites#destroy'
+  delete '/favorites', to: 'favorites#delete'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     
